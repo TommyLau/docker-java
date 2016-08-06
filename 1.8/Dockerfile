@@ -18,5 +18,6 @@ RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | te
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
     && ln -s /usr/lib/x86_64-linux-gnu/libtcnative-1.so /usr/lib/libtcnative-1.so \
-    && sed -i 's/^\(securerandom.source=file:\/dev\/\)\(random\)/\1u\2/' ${JAVA_HOME}/jre/lib/security/java.security
+    && sed -i 's/^\(securerandom.source=file:\/dev\/\)\(random\)/\1u\2/' ${JAVA_HOME}/jre/lib/security/java.security \
+    && sed -i 's/^\(jdk.tls.disabledAlgorithms=.*\) RC4,\(.*\)/\1\2/' ${JAVA_HOME}/jre/lib/security/java.security
 
