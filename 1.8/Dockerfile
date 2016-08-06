@@ -5,6 +5,8 @@ MAINTAINER Tommy Lau <tommy@gen-new.com>
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
 # Install Oracle JDK 1.8
 RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee /etc/apt/sources.list.d/webupd8team-java.list \
     && echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list \
@@ -15,7 +17,6 @@ RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | te
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
-    && ln -s  /usr/lib/x86_64-linux-gnu/libtcnative-1.so /usr/lib/libtcnative-1.so
-
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+    && ln -s /usr/lib/x86_64-linux-gnu/libtcnative-1.so /usr/lib/libtcnative-1.so \
+    && sed -i 's/^\(securerandom.source=file:\/dev\/\)\(random\)/\1u\2/' ${JAVA_HOME}/jre/lib/security/java.security
 
