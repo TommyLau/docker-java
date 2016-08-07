@@ -18,6 +18,11 @@ RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | te
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
     && ln -s /usr/lib/x86_64-linux-gnu/libtcnative-1.so /usr/lib/libtcnative-1.so \
-    && sed -i 's/^\(securerandom.source=file:\/dev\/\)\(random\)/\1u\2/' ${JAVA_HOME}/jre/lib/security/java.security \
-    && sed -i 's/^\(jdk.tls.disabledAlgorithms=.*\) RC4,\(.*\)/\1\2/' ${JAVA_HOME}/jre/lib/security/java.security
+    && sed -i 's/^\(securerandom.source=file:\/dev\/\)\(random\)/\1u\2/' ${JAVA_HOME}/jre/lib/security/java.security
+
+# Due to import control restrictions of some countries, the version of the JCE policy files that are bundled in the Java Runtime Environment, or JRE(TM), 8 environment allow "strong" but limited cryptography to be used. This download bundle (the one including this README file) provides "unlimited strength" policy files which contain no restrictions on cryptographic strengths.
+# Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files 8 Download 
+# http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
+# http://stackoverflow.com/questions/30758303/problems-connecting-via-https-ssl-through-own-java-client
+COPY local_policy.jar ${JAVA_HOME}/jre/lib/security/
 
