@@ -1,10 +1,14 @@
-FROM debian:jessie
+FROM ubuntu:16.04
 
 MAINTAINER Tommy Lau <tommy@gen-new.com>
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
+# Non-interactive
+ENV DEBIAN_FRONTEND noninteractive
+
+# Export Java Home
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Install Oracle JDK 1.8
